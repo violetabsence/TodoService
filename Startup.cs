@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TodoApi.Models;
+using TodoApiDTO;
+using TodoApiDTO.Controllers;
+using TodoApiDTO.Repository;
 
 namespace TodoApi
 {
@@ -22,6 +25,8 @@ namespace TodoApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureMySqlContext(Configuration);
+            services.AddScoped<IRepository<TodoItem>, Repository<TodoItem>>();
+            services.AddScoped<ITodoItemService, TodoItemService>();
             services.AddControllers();
             services.AddSwaggerGen();
         }
